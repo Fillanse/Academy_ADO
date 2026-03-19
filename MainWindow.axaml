@@ -5,28 +5,36 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Academy.MainWindow"
         Title="Academy SPU_411"
-        Background="Black">
-    <DockPanel LastChildFill="True">
-        <!-- Status Bar -->
-        <Border DockPanel.Dock="Bottom" Background="#333333" Padding="5,2">
-            <TextBlock x:Name="statusText" Text="Ready" Foreground="White" />
-        </Border>
-        
-        <!-- TabControl -->
-        <TabControl x:Name="tabControl" 
-                    SelectionChanged="TabControl_SelectedIndexChanged"
-                    Background="Black">
-            <TabItem Header="Students" />
-            <TabItem Header="Groups" />
-            <TabItem Header="Directions">
-                <DataGrid x:Name="dgvDirections"
-                          AutoGenerateColumns="True"
-                          CanUserResizeColumns="True"
-                          Background="Black"
-                          Foreground="White" />
-            </TabItem>
-            <TabItem Header="Disciplines" />
-            <TabItem Header="Teachers" />
-        </TabControl>
-    </DockPanel>
+        x:DataType="vm:MainWindowViewModel"
+        xmlns:vm="using:Academy.ViewModels"
+        >
+     <Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition  />
+			<RowDefinition Height="25" />
+		</Grid.RowDefinitions>
+		<TabControl Name="tabControl" Grid.Row="0" SelectedIndex="{Binding SelectedIndex}">
+			<TabItem Name="tabStudents"     Header="Students" >
+				<DataGrid Name="dgStudents" ItemsSource="{Binding Students}" AutoGenerateColumns="True" />
+			</TabItem>
+			<TabItem Name="tabGroups" Header="Groups">
+				<DataGrid Name="dgGroups" ItemsSource="{Binding Groups}" AutoGenerateColumns="True" />
+			</TabItem>
+			<TabItem Name="tabDirections" Header="Directions">
+				<DataGrid Name="dgDirections" ItemsSource="{Binding Directions}" AutoGenerateColumns="True"
+				          HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+			</TabItem>
+			<TabItem Name="tabDisciplines" Header="Disciplines">
+				<DataGrid Name="dgDisciplines" ItemsSource="{Binding Disciplines}" AutoGenerateColumns="True" />
+			</TabItem>
+			<TabItem Name="tabTeachers" Header="Teachers">
+				<DataGrid Name="dgTeachers" ItemsSource="{Binding Teachers}" AutoGenerateColumns="True" />
+			</TabItem>
+		</TabControl>
+		<DockPanel Grid.Row="1" Name="statusBar">
+			<Border>
+				<TextBlock Name="statusBarCount"></TextBlock>
+			</Border>
+		</DockPanel>
+    </Grid>
 </Window>
